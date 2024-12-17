@@ -1,20 +1,16 @@
 import java.util.List;
-import java.util.ArrayList;
 
 public class Deck {
     // List to store the cards in the deck
-    List<Card> cards = new ArrayList<>();
+    private List<Card> cardsInDeck;
 
-    // Constructor to initialize the deck with a list of cards
-    public Deck(List<Card> newCards) {
-        // Initialize the deck with the provided list of cards
-        cards = newCards;
+    // Constructor to initialize a deck with a list of cards
+    public Deck(List<Card> cards) {
+        this.cardsInDeck = cards;
     }
 
-    // Pulls a card from the "top" of the deck and changes the nextDeck of the card
-    // to point to the next deck
-    public Card pullCard(int numDecks) {
-        // Return the first card from the deck (the top card)
-        return cards.get(0);
+    // Pulls the top card from the deck (removes and returns the first card)
+    public Card drawCard() {
+        return cardsInDeck.get(0); // Returns the first card (top of the deck)
     }
 }
