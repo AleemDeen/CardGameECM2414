@@ -1,45 +1,47 @@
-// This class represents a single card in the game.
-// The Card class was chosen based on the spec's requirements, even though a simpler structure like a list could suffice.
+import java.util.Objects;
+
 public class Card {
+    // The number representing the card's face value
+    private final int value;
+    
+    // The ID of the deck that the card belongs to
+    private final int deckId;
 
-// The face value of the card (e.g., the number on the card).
-    int cardNumber;
-
-// NextDeck tells the CardGame which deck the card should go to next.
-    int nextDeck;
-
-// PlayerPointer tracks the player currently associated with the card. Default is -1 (unassigned).
-    int playerPointer = -1;
-
-// DeckPointer tracks the deck currently associated with the card. Default is -1 (unassigned).
-    int deckPointer = -1;
-
-
-/** Constructor to initialize a Card object. 
-firstCardNumber The numeric value of the card.
-firstNextDeck   The ID of the next deck the card is associated with.
-*/     
-    public Card(int firstCardNumber, int firstNextDeck) {
-// Assign the initial card value and its associated next deck.
-        this.cardNumber = firstCardNumber;
-        this.nextDeck = firstNextDeck;
+    // Constructor to create a new card with a specific value and deck ID
+    public Card(int cardValue, int deckId) {
+        this.value = cardValue;
+        this.deckId = deckId;
     }
 
-/**
-Sets the player pointer to indicate the player currently holding the card.
-playerID The ID of the player holding the card.
-*/
-    public void setPlayerPointer(int playerID) {
-// Update the PlayerPointer to reflect the associated player.
-        this.playerPointer = playerID;
+    // Returns the card's value
+    public int getValue() {
+        return value;
     }
 
-/**
-Sets the deck pointer to indicate the deck currently holding the card.
-deckID The ID of the deck holding the card.
-*/
-    public void setDeckPointer(int deckID) {
-// Update the DeckPointer to reflect the associated deck.
-        this.deckPointer = deckID;
+    // Returns the ID of the deck the card is part of
+    public int getDeckId() {
+        return deckId;
+    }
+
+    // Provides a string representation of the card for output
+    @Override
+    public String toString() {
+        return "Card[value=" + value + ", deck=" + deckId + "]";
+    }
+
+    // Checks if two cards are equal by comparing their value and deck ID
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Card card = (Card) obj;
+        return value == card.value && deckId == card.deckId;
+    }
+
+    // Computes a hash code based on card value and deck ID
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, deckId);
     }
 }
+
