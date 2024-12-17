@@ -1,80 +1,71 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.nio.file.*;
 import java.io.IOException;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardGame extends Thread {
-    // List of players in the game
-    List<Player> players = new ArrayList<>();
-    // List of decks in the game
-    List<Deck> decks = new ArrayList<>();
+    // List to store players in the game
+    private List<Player> players = new ArrayList<>();
+    
+    // List to store the decks in the game
+    private List<Deck> decks = new ArrayList<>();
+    
     // Number of players in the game
-    static int numPlayers;
+    private static int playerCount;
 
-    // Constructor for the CardGame class, currently empty
-    public static void CardGame() throws Exception {
-    }
-
-    // Method to read file contents and return as a single string
-    public String readFile() throws IOException {
+    // Method to read data from the "pack.txt" file
+    private String loadCardData() throws IOException {
         Path filePath = Paths.get("pack.txt");
         return Files.readString(filePath);
     }
 
-    // Generates a list of cards from the file
-    private ArrayList<Card> CardGeneration() throws Exception {
-        ArrayList<Card> cardList = new ArrayList<>();
-        String cardData = readFile();
-        String[] numList = cardData.split(",");
-        System.out.println(numList);
-
-        // Iterate through card data and create new Card objects
-        for (String x : numList) {
-            if (!x.equals(",")) { // Avoid adding empty strings
-                int newNum = Integer.valueOf(x);
-                System.out.println(newNum);
-                Card newCard = new Card(newNum, 0); // Create a new card
-                cardList.add(newCard);
+    // Generates a list of cards based on the data read from the "pack.txt" file
+    private List<Card> createCards() throws Exception {
+        List<Card> generatedCards = new ArrayList<>();
+        String cardData = loadCardData();
+        String[] cardValues = cardData.split(",");
+        
+        for (String value : cardValues) {
+            if (!value.equals(",")) {
+                int cardValue = Integer.parseInt(value.trim());
+                Card card = new Card(cardValue, 0); // Default deck ID 0
+                generatedCards.add(card);
             }
         }
-
-        return cardList;
+        return generatedCards;
     }
 
-    // Sets up the game by initializing players and decks
-    public void setup(int playerNumber, int deckNumber) throws Exception {
-        // Generates all cards for the game
-        ArrayList<Card> cards = CardGeneration();
+    // Sets up the game by distributing cards among players and decks
+    public void initializeGame(int numberOfPlayers, int numberOfDecks) throws Exception {
+        List<Card> availableCards = createCards();
 
-        // Initialize players and assign them cards
-        for (int i = 0; i < playerNumber; i++) {
-            ArrayList<Card> hand = new ArrayList<>();
-            // Each player gets 4 cards
+        // Assign 4 cards to each player
+        for (int i = 0; i < numberOfPlayers; i++) {
+            List<Card> hand = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
-                Card card = cards.remove(0);
-                card.setPlayerPointer(i + 1); // Assign the player to the card
+                Card card = availableCards.remove(0);
+                card.setPlayerPointer(i + 1); // Set the player's ID
                 hand.add(card);
             }
-            players.add(new Player(i + 1, hand)); // Add player with their hand
+            players.add(new Player(i + 1, hand));
         }
 
-        // Calculate number of cards per deck
-        int numOfCardsDeck = cards.size() / deckNumber;
-        // Initialize decks and assign cards
-        for (int i = 0; i < deckNumber; i++) {
+        // Distribute remaining cards into decks
+        int cardsPerDeck = availableCards.size() / numberOfDecks;
+        for (int i = 0; i < numberOfDecks; i++) {
             List<Card> deckCards = new ArrayList<>();
-            // Each deck gets a portion of the remaining cards
-            for (int j = 0; j < numOfCardsDeck; j++) {
-                Card card = cards.remove(0);
-                card.setDeckPointer(i + 1); // Assign the deck to the card
+            for (int j = 0; j < cardsPerDeck; j++) {
+                Card card = availableCards.remove(0);
+                card.setDeckPointer(i + 1); // Set the deck's ID
                 deckCards.add(card);
             }
-            decks.add(new Deck(deckCards)); // Add deck to the game
+            decks.add(new Deck(deckCards));
         }
     }
 
-    // Placeholder method for the next turn logic
-    public void nextturn() {
-        // Logic for processing the next turn (to be implemented)
+    // Placeholder for handling the next turn (game logic not implemented)
+    public void playNextTurn() {
+        // Game turn logic to be added
     }
 }
+
