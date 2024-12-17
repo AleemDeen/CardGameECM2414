@@ -1,0 +1,54 @@
+/**
+ * The Card class represents an individual card in the game.
+ * Each card has a numeric value and can optionally be associated with a deck.
+ */
+public class Card {
+    // The face value of the card.
+    private final int cardValue;
+
+    // The ID of the deck associated with the card (optional).
+    private final int deckId;
+
+    /**
+     * Constructs a Card object with a specified value and deck association.
+     *
+     * @param cardValue The numeric value of the card.
+     * @param deckId    The ID of the deck associated with the card (optional).
+     */
+    public Card(int cardValue, int deckId) {
+        // Initialize the card's value and deck ID.
+        this.cardValue = cardValue;
+        this.deckId = deckId;
+    }
+
+    /**
+     * Retrieves the value of the card.
+     *
+     * @return The numeric value of the card.
+     */
+    public int getCardValue() {
+        // Return the card's face value.
+        return cardValue;
+    }
+
+    /**
+     * Retrieves the associated deck ID of the card.
+     *
+     * @return The ID of the associated deck.
+     */
+    public int getDeckId() {
+        // Return the deck ID of the card.
+        return deckId;
+    }
+
+    /**
+     * Provides a string representation of the card for debugging or output purposes.
+     *
+     * @return A string in the format "Card[value=X, deckId=Y]".
+     */
+    @Override
+    public String toString() {
+        // Format the card's details as a string.
+        return "Card[value=" + cardValue + ", deckId=" + deckId + "]";
+    }
+}
