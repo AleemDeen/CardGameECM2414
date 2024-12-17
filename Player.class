@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player {
+    // The player's preferred card number (used to determine the player's preference)
+    int prefNum;
+    
+    // List to store the player's hand of cards
+    List<Card> hand = new ArrayList<>();
+
+    // Constructor to initialize the player with a preferred card number and their initial hand of cards
+    public Player(int preferredNum, ArrayList<Card> firstHand) {
+        this.prefNum = preferredNum; // Set the player's preferred card number
+        this.hand = firstHand; // Assign the initial hand of cards to the player
+    }
+
+    // Checks if the player has won the game (4 cards of the same value)
+    public Boolean checkWin() {
+        // Assume player wins unless proven otherwise
+        Boolean winTrue = true;
+
+        // Get the card number of the first card in the hand
+        int firstNum = this.hand.get(0).cardNumber;
+
+        // Check if all cards in the hand have the same number as the first card
+        for (int i = 0; i < 3; ++i) {
+            if (this.hand.get(i).cardNumber != firstNum) {
+                // If any card has a different number, the player doesn't win
+                winTrue = false;
+            }
+        }
+
+        return winTrue; // Return whether the player has won
+    }
+
+    // Method to handle the player's next turn and return the card to play
+    public Card nextTurn(Card newCard) {
+        // Return the first card in the player's hand (the card to play)
+        return this.hand.get(0);
+    }
+}
