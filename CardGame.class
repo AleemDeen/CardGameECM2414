@@ -1,0 +1,113 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The CardGame class orchestrates the card game, managing players, decks, and game logic.
+ * It extends Thread to handle multi-threaded gameplay (though specific threading logic is not implemented here yet).
+ */
+public class CardGame extends Thread {
+
+    // List of players participating in the game.
+    List<Player> players = new ArrayList<>();
+
+    // List of decks used in the game.
+    List<Deck> decks = new ArrayList<>();
+
+    // The number of players in the game.
+    static int numPlayers;
+
+    /**
+     * Default constructor for the CardGame class.
+     */
+    public CardGame() {
+        // Initialize game components if needed.
+    }
+
+    /**
+     * Main entry point for running the game. 
+     * Placeholder for game setup and execution logic.
+     */
+    public static void CardGame() throws Exception {
+        // Currently, this does nothing. 
+        // Add game initialization or other logic here as required.
+    }
+
+    /**
+     * Reads the contents of the "pack.txt" file containing card values.
+     *
+     * @return A string containing the contents of the pack file.
+     * @throws IOException If the file cannot be read.
+     */
+    public String readFile() throws IOException {
+        // Path to the card pack file.
+        Path filePath = Paths.get("pack.txt");
+        // Read and return the file content as a string.
+        return Files.readString(filePath);
+    }
+
+    /**
+     * Generates a list of Card objects based on the contents of the pack file.
+     *
+     * @return An ArrayList of Card objects.
+     * @throws Exception If an error occurs during file reading or card creation.
+     */
+    private ArrayList<Card> generateCards() throws Exception {
+        // List to hold all cards generated.
+        ArrayList<Card> cardList = new ArrayList<>();
+
+        // Read the card values from the pack file.
+        String cardData = this.readFile();
+
+        // Split the card data into individual values (assuming comma-separated).
+        String[] numList = cardData.split(",");
+
+        // Iterate over the values and create Card objects.
+        for (String x : numList) {
+            // Ignore empty or invalid entries.
+            if (!x.equals(",")) {
+                // Convert the string to an integer value.
+                int cardValue = Integer.parseInt(x.trim());
+                System.out.println(cardValue); // Debugging output.
+
+                // Create a new Card object with default nextDeck = 0.
+                Card newCard = new Card(cardValue, 0);
+                // Add the card to the list.
+                cardList.add(newCard);
+            }
+        }
+
+        // Return the generated list of cards.
+        return cardList;
+    }
+
+    /**
+     * Sets up the game with the specified number of players.
+     *
+     * @param playerNumber The number of players in the game.
+     * @throws Exception If an error occurs during card generation or setup.
+     */
+    public void setup(int playerNumber) throws Exception {
+        // Generate all cards needed for the game.
+        ArrayList<Card> cards = this.generateCards();
+
+        // Initialize players and decks (to be implemented).
+        for (int i = 0; i < playerNumber; ++i) {
+            // Add logic for creating players and assigning cards.
+        }
+
+        // Add logic for distributing cards to decks and players.
+    }
+
+    /**
+     * Executes the next turn in the game.
+     * Placeholder method to handle gameplay logic.
+     */
+    public void nextTurn() {
+        // Logic for executing a player's turn goes here.
+        // This could involve drawing a card, discarding a card, and checking for a winner.
+    }
+}
