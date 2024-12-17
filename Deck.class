@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Deck {
+    // List to store the cards in the deck
+    List<Card> cards = new ArrayList<>();
+
+    // Constructor to initialize the deck with a list of cards
+    public Deck(List<Card> newCards) {
+        this.cards = newCards; // Assign the provided cards to the deck
+    }
+
+    // Method to pull (draw) the top card from the deck
+    public Card pullCard(int numDecks) {
+        // Return the first card from the deck (the top card)
+        return this.cards.get(0);
+    }
+}
