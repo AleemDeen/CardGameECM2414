@@ -1,11 +1,15 @@
-import java.util.Objects;
-
 public class Card {
     // The number representing the card's face value
     private final int value;
     
     // The ID of the deck that the card belongs to
     private final int deckId;
+
+    // Player pointer (to assign which player the card belongs to)
+    private int playerPointer = -1;
+
+    // Deck pointer (to assign which deck the card belongs to)
+    private int deckPointer = -1;
 
     // Constructor to create a new card with a specific value and deck ID
     public Card(int cardValue, int deckId) {
@@ -23,25 +27,19 @@ public class Card {
         return deckId;
     }
 
+    // Sets the player pointer for the card
+    public void setPlayerPointer(int playerId) {
+        this.playerPointer = playerId;
+    }
+
+    // Sets the deck pointer for the card
+    public void setDeckPointer(int deckId) {
+        this.deckPointer = deckId;
+    }
+
     // Provides a string representation of the card for output
     @Override
     public String toString() {
-        return "Card[value=" + value + ", deck=" + deckId + "]";
-    }
-
-    // Checks if two cards are equal by comparing their value and deck ID
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Card card = (Card) obj;
-        return value == card.value && deckId == card.deckId;
-    }
-
-    // Computes a hash code based on card value and deck ID
-    @Override
-    public int hashCode() {
-        return Objects.hash(value, deckId);
+        return "Card[value=" + value + ", deck=" + deckId + ", player=" + playerPointer + ", deckPointer=" + deckPointer + "]";
     }
 }
-
